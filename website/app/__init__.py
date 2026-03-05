@@ -9,6 +9,7 @@ from jinja2 import TemplateNotFound
 
 SUPPORTED_LANGUAGES = ('en', 'es')
 LANG_COOKIE_NAME = 'lang'
+ERROR_STATUS_CODES = (400, 401, 403, 404, 405, 429, 500, 502, 503, 504)
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -83,10 +84,15 @@ def create_app():
 			samesite='Lax'
 		)
 		return response
-	
-	@app.errorhandler(404)
-	def page_not_found(e):
-		return render_localized_template('error/404.html'), 404
+
+	def handle_http_error(error):
+		status_code = getattr(error, 'code', 500)
+		if status_code not in ERROR_STATUS_CODES:
+			status_code = 500
+		return render_localized_template(f'error/{status_code}.html'), status_code
+
+	for status_code in ERROR_STATUS_CODES:
+		app.register_error_handler(status_code, handle_http_error)
 
 	from app.routes.home import home_bp
 	app.register_blueprint(home_bp)
