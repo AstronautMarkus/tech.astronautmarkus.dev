@@ -13,29 +13,33 @@
 
         <div class="header">
             Tech.MarkusDev<br>
+            {% if current_lang == 'es' %}
+            <small>"Reviviendo PCs viejas con Linux, odiando Windows desde que abrí los ojos."</small>
+            {% else %}
             <small>"Reviving old PCs with Linux, Hating Windows since I opened my eyes."</small>
+            {% endif %}
         </div>
 
         <div class="leftnav">
-            <h3>Navigation</h3>
+            <h3>{% if current_lang == 'es' %}Navegación{% else %}Navigation{% endif %}</h3>
 
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Videos / YouTube</a></li>
-                <li><a href="#">Mini Blog</a></li>
-                <li><a href="#">About Me</a></li>
+                <li><a href="{{ url_for('home.index')}}">{% if current_lang == 'es' %}Inicio{% else %}Home{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Videos / YouTube{% else %}Videos / YouTube{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Mini Blog{% else %}Mini Blog{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Sobre mí{% else %}About Me{% endif %}</a></li>
             </ul>
 
-            <h3 style="margin-top:30px;">Quick Links</h3>
+            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Enlaces Rápidos{% else %}Quick Links{% endif %}</h3>
             <ul>
                 <li><a href="#">Arch Wiki</a></li>
-                <li><a href="#">Old ThinkPads</a></li>
-                <li><a href="#">Matrix Chat</a></li>
-                <li><a href="#">Thing 2</a></li>
-                <li><a href="#">Thing 3</a></li>
-                <li><a href="#">Thing 4</a></li>
-                <li><a href="#">Thing 5</a></li>
-                <li><a href="#">Thing 6</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}ThinkPads viejas{% else %}Old ThinkPads{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Chat de Matrix{% else %}Matrix Chat{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 2{% else %}Thing 2{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 3{% else %}Thing 3{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 4{% else %}Thing 4{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 5{% else %}Thing 5{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 6{% else %}Thing 6{% endif %}</a></li>
             </ul>
         </div>
 
@@ -45,7 +49,19 @@
         </div>
 
         <div class="footer">
-            © {{ current_year }} Marcos @ TechBit • I am not responsible if your PC comes back to life and rebels
+
+            {% if current_lang == 'es' %}
+            © {{ current_year }} AstronautMarkusDev • No reparo impresoras, bueno, solo por un buen $$$.
+            {% else %}
+            © {{ current_year }} AstronautMarkusDev • I don't fix printers, well, only for a good $$$.
+            {% endif %}
+            <div style="margin-top: 8px;">
+                {% if current_lang == 'es' %}
+                <a href="{{ url_for('set_language', lang_code='en', next=request.path) }}" class="button">English</a>
+                {% else %}
+                <a href="{{ url_for('set_language', lang_code='es', next=request.path) }}" class="button">Español</a>
+                {% endif %}
+            </div>
         </div>
 
     </div>
