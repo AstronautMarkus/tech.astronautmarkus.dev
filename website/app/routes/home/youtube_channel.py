@@ -1,14 +1,17 @@
 from . import home_bp
-from app import get_current_language, render_localized_template
+from app import db, get_current_language, render_localized_template
+from app.models.models import YoutubeChannelCache, YoutubeVideo
 import requests
 import re
 import xml.etree.ElementTree as ET
-from datetime import datetime
+from datetime import datetime, timedelta
+from sqlalchemy.exc import SQLAlchemyError
 
 
 CHANNEL_URL = 'https://www.youtube.com/@astronautmarkusdev'
 YOUTUBE_TIMEOUT_SECONDS = 10
 MAX_VIDEOS = 8
+CACHE_TTL_MINUTES = 15
 
 NAMESPACES = {
     'atom': 'http://www.w3.org/2005/Atom',
@@ -87,16 +90,92 @@ def _fetch_latest_videos(channel_url, limit=MAX_VIDEOS):
     return videos
 
 
+def _get_cached_channel_state(channel_url):
+    return YoutubeChannelCache.query.filter_by(channel_url=channel_url).first()
+
+
+def _get_cached_videos(channel_url):
+    rows = (
+        YoutubeVideo.query.filter_by(channel_url=channel_url)
+        .order_by(YoutubeVideo.published.desc(), YoutubeVideo.id.desc())
+        .all()
+    )
+
+    return [
+        {
+            'video_id': row.video_id,
+            'title': row.title,
+            'published': row.published or '',
+            'url': row.video_url,
+            'thumbnail': row.thumbnail_url or '',
+        }
+        for row in rows
+    ]
+
+
+def _load_cache_snapshot(channel_url):
+    try:
+        return _get_cached_channel_state(channel_url), _get_cached_videos(channel_url)
+    except SQLAlchemyError:
+        db.session.rollback()
+        return None, []
+
+
+def _save_videos_in_cache(channel_url, videos):
+    synced_at = datetime.utcnow()
+
+    YoutubeVideo.query.filter_by(channel_url=channel_url).delete(synchronize_session=False)
+
+    for video in videos:
+        db.session.add(
+            YoutubeVideo(
+                channel_url=channel_url,
+                video_id=video.get('video_id', ''),
+                title=video.get('title', 'Untitled video'),
+                published=video.get('published', ''),
+                video_url=video.get('url', ''),
+                thumbnail_url=video.get('thumbnail', ''),
+            )
+        )
+
+    state = _get_cached_channel_state(channel_url)
+    if state is None:
+        state = YoutubeChannelCache(channel_url=channel_url, last_synced_at=synced_at)
+        db.session.add(state)
+    else:
+        state.last_synced_at = synced_at
+
+    db.session.commit()
+
+
+def _is_cache_fresh(last_synced_at):
+    if not last_synced_at:
+        return False
+
+    return datetime.utcnow() - last_synced_at < timedelta(minutes=CACHE_TTL_MINUTES)
+
+
 
 @home_bp.route('/youtube-channel')
 def youtube_channel():
-    videos = []
+    cached_state, cached_videos = _load_cache_snapshot(CHANNEL_URL)
+
+    videos = cached_videos
     fetch_error = None
     lang = get_current_language()
 
-    try:
-        videos = _fetch_latest_videos(CHANNEL_URL)
-    except (requests.RequestException, ET.ParseError, ValueError):
+    if not _is_cache_fresh(cached_state.last_synced_at if cached_state else None):
+        try:
+            fresh_videos = _fetch_latest_videos(CHANNEL_URL)
+            videos = fresh_videos
+            try:
+                _save_videos_in_cache(CHANNEL_URL, fresh_videos)
+            except SQLAlchemyError:
+                db.session.rollback()
+        except (requests.RequestException, ET.ParseError, ValueError):
+            db.session.rollback()
+
+    if not videos:
         if lang == 'es':
             fetch_error = 'No pude cargar los últimos videos en este momento. Intenta de nuevo en unos minutos.'
         else:
