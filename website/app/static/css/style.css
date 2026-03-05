@@ -157,24 +157,3 @@ a:hover {
   background: linear-gradient(to bottom, #ff3300, #ff6600);
   box-shadow: 0 0 10px rgba(255,165,0,0.5);
 }
-
-@media (max-width: 800px) {
-  .wrapper {
-    width: min(980px, calc(100% - 20px));
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "header"
-      "leftnav"
-      "content"
-      "footer";
-  }
-
-  .leftnav {
-    border-right: none;
-    border-bottom: 2px solid #224488;
-  }
-
-  .content {
-    border-radius: 0;
-  }
-}
