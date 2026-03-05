@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+
+{% block title %}YouTube Channel{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/youtube_channel.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Latest channel videos</h1>
+
+<p>
+
+    These are the most recent uploads from
+    <a href="{{ channel_url }}" target="_blank" rel="noopener noreferrer">@astronautmarkusdev</a>.
+</p>
+
+{% if fetch_error %}
+<p class="youtube-status-error">{{ fetch_error }}</p>
+{% elif videos %}
+<div class="youtube-grid">
+    {% for video in videos %}
+    <article class="youtube-card">
+        {% if video.thumbnail %}
+        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ video.thumbnail }}" alt="{{ video.title }}" class="youtube-thumb">
+        </a>
+        {% endif %}
+
+        <h2 class="youtube-video-title">
+            <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer">{{ video.title }}</a>
+        </h2>
+
+        {% if video.published %}
+        <p class="youtube-meta">
+            Published: {{ video.published }}
+        </p>
+        {% endif %}
+
+        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer" class="button">
+            Watch on YouTube
+        </a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<p class="youtube-status-empty">
+    There are no videos to show yet.
+</p>
+{% endif %}
+{% endblock %}
