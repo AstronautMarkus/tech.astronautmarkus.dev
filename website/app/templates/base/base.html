@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}- Tech.MarkusDev</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="header">
+            Tech.MarkusDev<br>
+            <small>"Reviving old PCs with Linux, Hating Windows since I opened my eyes."</small>
+        </div>
+
+        <div class="leftnav">
+            <h3>Navigation</h3>
+
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Videos / YouTube</a></li>
+                <li><a href="#">Mini Blog</a></li>
+                <li><a href="#">About Me</a></li>
+            </ul>
+
+            <h3 style="margin-top:30px;">Quick Links</h3>
+            <ul>
+                <li><a href="#">Arch Wiki</a></li>
+                <li><a href="#">Old ThinkPads</a></li>
+                <li><a href="#">Matrix Chat</a></li>
+                <li><a href="#">Thing 2</a></li>
+                <li><a href="#">Thing 3</a></li>
+                <li><a href="#">Thing 4</a></li>
+                <li><a href="#">Thing 5</a></li>
+                <li><a href="#">Thing 6</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="footer">
+            © {{ current_year }} Marcos @ TechBit • I am not responsible if your PC comes back to life and rebels
+        </div>
+
+    </div>
+
+</body>
+
+</html>
