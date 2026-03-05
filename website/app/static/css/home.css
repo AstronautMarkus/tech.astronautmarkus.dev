@@ -1,0 +1,7 @@
+.astronautmarkus-tux{
+    width: 400px;
+    height: auto;
+    pointer-events: none;
+    margin: 0 auto;
+    display: block;
+}

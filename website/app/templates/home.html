@@ -1,21 +1,33 @@
 {% extends "base/base.html" %}
 
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> {% endblock %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
 <h1>Hello, World!</h1>
-<p>The place where I revive old PCs with Linux, make videos just for fun, and write my thoughts about
-    technology, free software, and the eternal struggle against Windows.</p>
-
-<h2>Latest updates</h2>
-<ul>
-    <li><a href="videos.html">Video: Arch on Pentium 4 – 2025 edition</a></li>
-    <li><a href="blog.html">Post: Why I still hate Wayland in 2026</a></li>
-    <li><a href="about.html">Who I really am</a></li>
-</ul>
-
-<p style="text-align:center; margin:40px 0;">
-    <a href="videos.html" class="button">Watch Videos</a>
-    <a href="blog.html" class="button">Read Blog</a>
+<p>Welcome to this new extension of <a href="https://astronautmarkus.dev" target="_blank">AstronautMarkusDev</a>.
 </p>
+
+<p>
+    This section is dedicated especially to my YouTube channel, where I revive old PCs with Linux, occasionally
+    program, and do other technology-related activities. Here you will find videos, mini blogs, and more content
+    related to my technological adventures.
+</p>
+
+<p>
+    I recommend visiting the <a href="">Videos / YouTube</a> section to see my latest videos and projects, or directly
+    visit my <a href="https://www.youtube.com/@AstronautMarkusDev" target="_blank">YouTube channel</a> to subscribe and
+    not miss any updates.
+</p>
+
+<img src="{{ url_for('static', filename='img/astronautmarkus-tux.png')}}" alt="AstronautMarkusDev Tux"
+    class="astronautmarkus-tux">
+
+<p>
+    This is my avatar for the channel, a Tux (the Linux mascot) wearing a Punk red Mohawk, and so.. AstronautMarkusDev!
+    I hope you like it as much as I do, and it represents the fun and rebellious spirit of my content.
+</p>
+
 {% endblock %}
