@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<h1>{% if current_lang == 'es' %}Error 404 - Página No Encontrada{% else %}Error 404 - Page Not Found{% endif %}</h1>
+
+<p>{% if current_lang == 'es' %}Lo sentimos, la página que estás buscando no existe. Puedes regresar a la
+    <a href="{{ url_for('home.index') }}">página principal</a>
+    o explorar otras secciones del sitio.
+    {% else %}Sorry, the page you are looking for does not exist. You can return to
+    the
+    <a href="{{ url_for('home.index') }}">home page</a>
+    or explore other sections of the site.{% endif %}
+</p>
+
+{% endblock %}

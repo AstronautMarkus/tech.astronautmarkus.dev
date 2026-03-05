@@ -83,6 +83,10 @@ def create_app():
 			samesite='Lax'
 		)
 		return response
+	
+	@app.errorhandler(404)
+	def page_not_found(e):
+		return render_localized_template('error/404.html'), 404
 
 	from app.routes.home import home_bp
 	app.register_blueprint(home_bp)
