@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method="post" action="{{ url_for('auth.login') }}">
+    <input type="hidden" name="next" value="{{ next_url }}">
+
+    <p>
+        <label for="identifier">Username or email:</label><br>
+        <input type="text" id="identifier" name="identifier" value="{{ form_data.identifier }}" required>
+        {% if errors.identifier %}
+        <br><small>{{ errors.identifier }}</small>
+        {% endif %}
+    </p>
+
+    <p>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required>
+        {% if errors.password %}
+        <br><small>{{ errors.password }}</small>
+        {% endif %}
+    </p>
+
+    <p>
+        <label>
+            <input type="checkbox" name="remember" value="1" {% if form_data.remember %}checked{% endif %}>
+            Remember me
+        </label>
+    </p>
+
+    <button type="submit">Sign in</button>
+</form>
+{% endblock %}

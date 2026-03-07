@@ -25,13 +25,32 @@
             <h3>{% if current_lang == 'es' %}Navegación{% else %}Navigation{% endif %}</h3>
 
             <ul>
-                <li><a href="{{ url_for('home.index')}}">{% if current_lang == 'es' %}Inicio{% else %}Home{% endif %}</a></li>
-                <li><a href="{{ url_for('home.youtube_channel')}}">{% if current_lang == 'es' %}Videos / YouTube{% else %}Videos / YouTube{% endif %}</a></li>
+                <li><a href="{{ url_for('home.index')}}">{% if current_lang == 'es' %}Inicio{% else %}Home{% endif
+                        %}</a></li>
+                <li><a href="{{ url_for('home.youtube_channel')}}">{% if current_lang == 'es' %}Videos / YouTube{% else
+                        %}Videos / YouTube{% endif %}</a></li>
                 <li><a href="#">{% if current_lang == 'es' %}Mini Blog{% else %}Mini Blog{% endif %}</a></li>
                 <li><a href="#">{% if current_lang == 'es' %}Sobre mí{% else %}About Me{% endif %}</a></li>
             </ul>
 
-            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Enlaces Rápidos{% else %}Quick Links{% endif %}</h3>
+
+            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Cuenta{% else %}Account{% endif %} {% if
+                current_user.is_authenticated %} <i style="font-size: x-small;">({{ current_user.username }})</i> {%
+                endif %}</h3>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout')}}">{% if current_lang == 'es' %}Cerrar sesión{% else %}Logout{%
+                        endif %}</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login')}}">{% if current_lang == 'es' %}Iniciar sesión{% else %}Login{%
+                        endif %}</a></li>
+                <li><a href="{{ url_for('auth.register')}}">{% if current_lang == 'es' %}Registro{% else %}Register{%
+                        endif %}</a></li>
+                {% endif %}
+            </ul>
+
+            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Enlaces Rápidos{% else %}Quick Links{% endif %}
+            </h3>
             <ul>
                 <li><a href="#">Arch Wiki</a></li>
                 <li><a href="#">{% if current_lang == 'es' %}ThinkPads viejas{% else %}Old ThinkPads{% endif %}</a></li>

@@ -1,4 +1,5 @@
 from flask import Flask, g, redirect, render_template, request, url_for, current_app
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from app.config.config import Config
@@ -13,6 +14,21 @@ ERROR_STATUS_CODES = (400, 401, 403, 404, 405, 429, 500, 502, 503, 504)
 
 db = SQLAlchemy()
 migrate = Migrate()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.login_message_category = 'warning'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+	from app.models.models import User
+
+	try:
+		user_id = int(user_id)
+	except (TypeError, ValueError):
+		return None
+
+	return User.query.get(user_id)
 
 
 def get_current_language():
@@ -49,6 +65,7 @@ def create_app():
 
 	db.init_app(app)
 	migrate.init_app(app, db)
+	login_manager.init_app(app)
 
 	app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
 
@@ -95,6 +112,8 @@ def create_app():
 		app.register_error_handler(status_code, handle_http_error)
 
 	from app.routes.home import home_bp
+	from app.routes.auth import auth_bp
 	app.register_blueprint(home_bp)
+	app.register_blueprint(auth_bp)
 
 	return app
