@@ -5,7 +5,6 @@
     <title>{% block title %}{% if current_lang == 'es' %}Inicio{% else %}Home{% endif %}{% endblock %} - Tech.MarkusDev</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description" content="{% block meta_description %}{% if current_lang == 'es' %}Tech.MarkusDev: Linux, PCs viejas, tecnología, YouTube y mini blog de AstronautMarkusDev.{% else %}Tech.MarkusDev: Linux, old PCs, technology, YouTube, and mini-blog content from AstronautMarkusDev.{% endif %}{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}{% if current_lang == 'es' %}Linux, PCs viejas, YouTube, tecnología, AstronautMarkusDev{% else %}Linux, old PCs, YouTube, technology, AstronautMarkusDev{% endif %}{% endblock %}">
@@ -66,6 +65,7 @@
                             {% if current_lang == 'es' %}Cerrar sesión{% else %}Logout{% endif %}
                         </button>
                     </form>
+                    <a href="">{% if current_lang == 'es' %}Panel de Administración{% else %}Admin Panel{% endif %}</a>
                 </li>
                 {% else %}
                 <li><a href="{{ url_for('auth.login')}}">{% if current_lang == 'es' %}Iniciar sesión{% else %}Login{%
