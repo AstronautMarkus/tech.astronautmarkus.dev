@@ -1,0 +1,90 @@
+.auth-panel {
+    max-width: 520px;
+    background: linear-gradient(to bottom, #132f5d, #0d2142);
+    border: 1px solid #335a99;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    padding: 18px 18px 14px;
+}
+
+.auth-panel h1 {
+    margin-bottom: 14px;
+}
+
+.auth-form {
+    margin: 0;
+}
+
+.auth-row {
+    margin: 0 0 14px;
+}
+
+.auth-form label {
+    color: #d6e6ff;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    padding: 8px 10px;
+    border: 1px solid #3c639f;
+    border-radius: 3px;
+    background: #0a1a3a;
+    color: #e0e0ff;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus {
+    outline: none;
+    border-color: #ff6600;
+    box-shadow: 0 0 0 1px rgba(255, 102, 0, 0.35), inset 0 0 4px rgba(0, 0, 0, 0.45);
+}
+
+.auth-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.auth-checkbox input[type="checkbox"] {
+    accent-color: #ff6600;
+}
+
+.auth-error {
+    display: block;
+    margin-top: 4px;
+    color: #ff9a9a;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #300;
+}
+
+.auth-submit {
+    padding: 6px 14px;
+    background: linear-gradient(to bottom, #ff5555, #c00000);
+    color: #fff;
+    border: 1px solid #880000;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px #550000;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.auth-submit:hover {
+    background: linear-gradient(to bottom, #ff3300, #ff6600);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.4);
+}
+
+.auth-note {
+    margin: 14px 0 0;
+    color: #c2d7ff;
+}

@@ -1,48 +1,57 @@
 {% extends "base/base.html" %}
 
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<h1>Create account</h1>
+<div class="auth-panel">
+    <h1>Create account</h1>
 
-<form method="post" action="{{ url_for('auth.register') }}">
-    <p>
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" value="{{ form_data.username }}" required>
-        {% if errors.username %}
-        <br><small>{{ errors.username }}</small>
-        {% endif %}
+    <form method="post" action="{{ url_for('auth.register') }}" class="auth-form">
+        <p class="auth-row">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" value="{{ form_data.username }}"
+                placeholder="Choose a username" required>
+            {% if errors.username %}
+            <small class="auth-error">{{ errors.username }}</small>
+            {% endif %}
+        </p>
+
+        <p class="auth-row">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="{{ form_data.email }}" placeholder="Enter your email"
+                required>
+            {% if errors.email %}
+            <small class="auth-error">{{ errors.email }}</small>
+            {% endif %}
+        </p>
+
+        <p class="auth-row">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            {% if errors.password %}
+            <small class="auth-error">{{ errors.password }}</small>
+            {% endif %}
+        </p>
+
+        <p class="auth-row">
+            <label for="confirm_password">Confirm password:</label><br>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat your password"
+                required>
+            {% if errors.confirm_password %}
+            <small class="auth-error">{{ errors.confirm_password }}</small>
+            {% endif %}
+        </p>
+
+        <button type="submit" class="auth-submit">Create account</button>
+    </form>
+
+    <p class="auth-note">
+        Already have an account?
+        <a href="{{ url_for('auth.login') }}">Sign in</a>
     </p>
-
-    <p>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" value="{{ form_data.email }}" required>
-        {% if errors.email %}
-        <br><small>{{ errors.email }}</small>
-        {% endif %}
-    </p>
-
-    <p>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required>
-        {% if errors.password %}
-        <br><small>{{ errors.password }}</small>
-        {% endif %}
-    </p>
-
-    <p>
-        <label for="confirm_password">Confirm password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-        {% if errors.confirm_password %}
-        <br><small>{{ errors.confirm_password }}</small>
-        {% endif %}
-    </p>
-
-    <button type="submit">Create account</button>
-</form>
-
-<p>
-    Already have an account?
-    <a href="{{ url_for('auth.login') }}">Sign in</a>
-</p>
+</div>
 {% endblock %}
