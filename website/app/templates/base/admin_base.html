@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang if current_lang in ['es', 'en'] else 'en' }}">
+
+<head>
+    <title>{% block title %}{% if current_lang == 'es' %}Inicio{% else %}Home{% endif %}{% endblock %} - Tech.MarkusDev
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="header">
+            Tech.MarkusDev<br>
+            {% if current_lang == 'es' %}
+            <small>Panel de Administración</small>
+            {% else %}
+            <small>Admin Panel</small>
+            {% endif %}
+        </div>
+
+        <div class="leftnav">
+            <h3>{% if current_lang == 'es' %}Navegación{% else %}Navigation{% endif %}</h3>
+
+            <ul>
+                <li><a href="{{ url_for('admin.admin_index')}}">{% if current_lang == 'es' %}Inicio Panel{% else %}Admin
+                        Home{% endif
+                        %}</a></li>
+            </ul>
+
+
+            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Cuenta{% else %}Account{% endif %} {% if
+                current_user.is_authenticated %} <i style="font-size: x-small;">({{ current_user.username }})</i> {%
+                endif %}</h3>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li>
+                    <form method="POST" action="{{ url_for('auth.logout') }}" class="leftnav-form">
+                        <button type="submit" class="leftnav-link-button">
+                            {% if current_lang == 'es' %}Cerrar sesión{% else %}Logout{% endif %}
+                        </button>
+                    </form>
+                    <a href="{{ url_for('home.index')}}">{% if current_lang == 'es' %}Salir a Inicio{% else %}Exit to
+                        Home{% endif %}</a>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login')}}">{% if current_lang == 'es' %}Iniciar sesión{% else %}Login{%
+                        endif %}</a></li>
+                <li><a href="{{ url_for('auth.register')}}">{% if current_lang == 'es' %}Registro{% else %}Register{%
+                        endif %}</a></li>
+                {% endif %}
+            </ul>
+
+            <h3 style="margin-top:30px;">{% if current_lang == 'es' %}Trabajo en Progreso{% else %}Work in Progress{%
+                endif %}
+            </h3>
+            <ul>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 1{% else %}Thing 1{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 2{% else %}Thing 2{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 3{% else %}Thing 3{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 4{% else %}Thing 4{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 5{% else %}Thing 5{% endif %}</a></li>
+                <li><a href="#">{% if current_lang == 'es' %}Cosa 6{% else %}Thing 6{% endif %}</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="footer">
+
+            {% if current_lang == 'es' %}
+            © {{ current_year }} AstronautMarkusDev • Esta vez en modo administrador.
+            {% else %}
+            © {{ current_year }} AstronautMarkusDev • This time in admin mode.
+            {% endif %}
+            <div style="margin-top: 8px;">
+                {% if current_lang == 'es' %}
+                <a href="{{ url_for('set_language', lang_code='en', next=request.path) }}" class="button">English</a>
+                {% else %}
+                <a href="{{ url_for('set_language', lang_code='es', next=request.path) }}" class="button">Español</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -45,3 +45,14 @@ class YoutubeVideo(db.Model):
 	__table_args__ = (
 		db.UniqueConstraint('channel_url', 'video_id', name='uq_channel_video_id'),
 	)
+
+class MiniBlog(db.Model):
+	__tablename__ = 'mini_blog'
+
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(255), nullable=False)
+	markdown_file = db.Column(db.String(255), nullable=False)
+	author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+	
