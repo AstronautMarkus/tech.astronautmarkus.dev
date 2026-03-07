@@ -6,6 +6,14 @@
 
 {% block title %}Iniciar sesión{% endblock %}
 
+{% block meta_description %}Inicia sesión en tu cuenta de Tech.MarkusDev.{% endblock %}
+{% block canonical_url %}{{ url_for('auth.login', _external=True) }}{% endblock %}
+{% block meta_robots %}noindex, follow{% endblock %}
+{% block og_title %}Iniciar sesión - Tech.MarkusDev{% endblock %}
+{% block og_description %}Accede a tu cuenta de Tech.MarkusDev.{% endblock %}
+{% block twitter_title %}Iniciar sesión - Tech.MarkusDev{% endblock %}
+{% block twitter_description %}Accede a tu cuenta de Tech.MarkusDev.{% endblock %}
+
 {% block content %}
 <div class="auth-panel">
     <h1>Iniciar sesión</h1>

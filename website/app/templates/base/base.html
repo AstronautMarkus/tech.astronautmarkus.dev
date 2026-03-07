@@ -1,9 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="{{ current_lang if current_lang in ['es', 'en'] else 'en' }}">
 
 <head>
-    <title>{% block title %}{% endblock %}- Tech.MarkusDev</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>{% block title %}{% if current_lang == 'es' %}Inicio{% else %}Home{% endif %}{% endblock %} - Tech.MarkusDev</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="{% block meta_description %}{% if current_lang == 'es' %}Tech.MarkusDev: Linux, PCs viejas, tecnología, YouTube y mini blog de AstronautMarkusDev.{% else %}Tech.MarkusDev: Linux, old PCs, technology, YouTube, and mini-blog content from AstronautMarkusDev.{% endif %}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% if current_lang == 'es' %}Linux, PCs viejas, YouTube, tecnología, AstronautMarkusDev{% else %}Linux, old PCs, YouTube, technology, AstronautMarkusDev{% endif %}{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <meta name="author" content="{% block meta_author %}AstronautMarkusDev{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}{{ request.url }}{% endblock %}">
+
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% if current_lang == 'es' %}Tech.MarkusDev{% else %}Tech.MarkusDev{% endif %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% if current_lang == 'es' %}Contenido de Linux, PCs viejas y tecnología por AstronautMarkusDev.{% else %}Linux, old-PC, and technology content by AstronautMarkusDev.{% endif %}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ request.url }}{% endblock %}">
+    <meta property="og:site_name" content="{% block og_site_name %}Tech.MarkusDev{% endblock %}">
+
+    <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{% if current_lang == 'es' %}Tech.MarkusDev{% else %}Tech.MarkusDev{% endif %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% if current_lang == 'es' %}Linux, PCs viejas, YouTube y tecnología.{% else %}Linux, old PCs, YouTube, and technology.{% endif %}{% endblock %}">
+
+    {% block seo_extra %}{% endblock %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block header %}{% endblock %}
 </head>

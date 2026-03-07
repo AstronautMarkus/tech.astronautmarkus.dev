@@ -6,6 +6,14 @@
 
 {% block title %}Registro{% endblock %}
 
+{% block meta_description %}Crea una cuenta en Tech.MarkusDev para participar en el sitio.{% endblock %}
+{% block canonical_url %}{{ url_for('auth.register', _external=True) }}{% endblock %}
+{% block meta_robots %}noindex, follow{% endblock %}
+{% block og_title %}Registro - Tech.MarkusDev{% endblock %}
+{% block og_description %}Crea tu cuenta de Tech.MarkusDev.{% endblock %}
+{% block twitter_title %}Registro - Tech.MarkusDev{% endblock %}
+{% block twitter_description %}Crea tu cuenta de Tech.MarkusDev.{% endblock %}
+
 {% block content %}
 <div class="auth-panel">
     <h1>Crear cuenta</h1>

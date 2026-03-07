@@ -6,6 +6,14 @@
 
 {% block title %}Login{% endblock %}
 
+{% block meta_description %}Login to your Tech.MarkusDev account.{% endblock %}
+{% block canonical_url %}{{ url_for('auth.login', _external=True) }}{% endblock %}
+{% block meta_robots %}noindex, follow{% endblock %}
+{% block og_title %}Login - Tech.MarkusDev{% endblock %}
+{% block og_description %}Access your Tech.MarkusDev account.{% endblock %}
+{% block twitter_title %}Login - Tech.MarkusDev{% endblock %}
+{% block twitter_description %}Access your Tech.MarkusDev account.{% endblock %}
+
 {% block content %}
 <div class="auth-panel">
     <h1>Login</h1>

@@ -2,6 +2,13 @@
 
 {% block title %}Canal de YouTube{% endblock %}
 
+{% block meta_description %}Últimos videos de YouTube de AstronautMarkusDev sobre Linux, PCs viejas y proyectos de tecnología.{% endblock %}
+{% block canonical_url %}{{ url_for('home.youtube_channel', _external=True) }}{% endblock %}
+{% block og_title %}Canal de YouTube - Tech.MarkusDev{% endblock %}
+{% block og_description %}Mira los últimos videos de Linux y PCs viejas de AstronautMarkusDev.{% endblock %}
+{% block twitter_title %}Canal de YouTube - Tech.MarkusDev{% endblock %}
+{% block twitter_description %}Mira los últimos videos de Linux y PCs viejas de AstronautMarkusDev.{% endblock %}
+
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/youtube_channel.css') }}">
 {% endblock %}
