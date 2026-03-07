@@ -60,8 +60,13 @@
                 endif %}</h3>
             <ul>
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('auth.logout')}}">{% if current_lang == 'es' %}Cerrar sesión{% else %}Logout{%
-                        endif %}</a></li>
+                <li>
+                    <form method="POST" action="{{ url_for('auth.logout') }}" class="leftnav-form">
+                        <button type="submit" class="leftnav-link-button">
+                            {% if current_lang == 'es' %}Cerrar sesión{% else %}Logout{% endif %}
+                        </button>
+                    </form>
+                </li>
                 {% else %}
                 <li><a href="{{ url_for('auth.login')}}">{% if current_lang == 'es' %}Iniciar sesión{% else %}Login{%
                         endif %}</a></li>
