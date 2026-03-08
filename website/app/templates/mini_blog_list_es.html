@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}Mini Blog{% endblock %}
+
+{% block meta_description %}Explora nuestra colección de publicaciones de blog sobre tecnología, Linux y desarrollo.{% endblock %}
+{% block canonical_url %}{{ url_for('home.mini_blog_list', _external=True) }}{% endblock %}
+
+{% block content %}
+<h1>Mini Blog (En Inglés)</h1>
+<p>Explora nuestras últimas publicaciones de blog:</p>
+
+<div class="blog-list">
+    {% if blogs %}
+        {% for blog in blogs %}
+        <div class="blog-item">
+            <h2><a href="{{ url_for('home.mini_blog_detail', blog_id=blog.id) }}">{{ blog.title }}</a></h2>
+            <p class="blog-meta">Publicado: {{ blog.created_at.strftime('%B %d, %Y') }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay publicaciones de blog disponibles aún.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
