@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% block title %}About Me{% endblock %}
+
+{% block meta_description %}Learn more about Markus, the creator of AstronautMarkusDev, his passion for technology,
+Linux, and bringing old PCs back to life.{% endblock %}
+{% block canonical_url %}{{ url_for('home.about_me', _external=True) }}{% endblock %}
+{% block og_title %}About Me - AstronautMarkusDev{% endblock %}
+{% block og_description %}Learn more about Markus, the creator of AstronautMarkusDev, his passion for technology, Linux,
+and bringing old PCs back to life.{% endblock %}
+{% block twitter_title %}About Me - AstronautMarkusDev{% endblock %}
+{% block twitter_description %}Learn more about Markus, the creator of AstronautMarkusDev, his passion for technology,
+Linux, and bringing old PCs back to life.{% endblock %}
+
+{% block content %}
+<h1>About Me</h1>
+<p>This page is just a <span class="highlight">small bridge</span>; if you <strong>really want to know about me</strong>, you should go to <a
+        href="https://astronautmarkus.dev/about" target="_blank" class="button">About Page</a>.</p>
+
+<p>
+    I have been <strong>passionate about technology</strong> since I was a child, and I have always been fascinated by the <span class="highlight">inner workings
+    of computers</span>. I started <strong>tinkering with old PCs</strong> and <strong>learning about Linux</strong> at a young age, and it has been a hobby of
+    mine ever since. I enjoy <strong>bringing old PCs back to life</strong> and giving them a new purpose, whether it's for gaming,
+    programming, or just general use.
+</p>
+
+<p>
+    In any case, I can say that I really like <strong>Lenovo ThinkPads</strong>, especially the <strong>X200 series</strong>, I like <span class="highlight">CRT monitors</span> but I've
+    never had one.
+</p>
+
+{% endblock %}

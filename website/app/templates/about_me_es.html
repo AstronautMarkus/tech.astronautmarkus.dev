@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% block title %}Sobre Mí{% endblock %}
+
+{% block meta_description %}Conoce más sobre Markus, el creador de AstronautMarkusDev, su pasión por la tecnología,
+Linux, y devolver a la vida PCs antiguas.{% endblock %}
+{% block canonical_url %}{{ url_for('home.about_me', _external=True) }}{% endblock %}
+{% block og_title %}Sobre Mí - AstronautMarkusDev{% endblock %}
+{% block og_description %}Conoce más sobre Markus, el creador de AstronautMarkusDev, su pasión por la tecnología, Linux,
+y devolver a la vida PCs antiguas.{% endblock %}
+{% block twitter_title %}Sobre Mí - AstronautMarkusDev{% endblock %}
+{% block twitter_description %}Conoce más sobre Markus, el creador de AstronautMarkusDev, su pasión por la tecnología,
+Linux, y devolver a la vida PCs antiguas.{% endblock %}
+
+{% block content %}
+<h1>Sobre Mí</h1>
+<p>Esta página es solo un <span class="highlight">pequeño puente</span>; si <strong>realmente quieres saber sobre mí</strong>, deberías ir a <a
+    href="https://astronautmarkus.dev/es/about" target="_blank" class="button">Página Sobre Mí</a>.</p>
+
+<p>
+    He sentido <strong>pasión por la tecnología</strong> desde que fui niño, y siempre me han fascinado los <span class="highlight">funcionamientos internos
+    de las computadoras</span>. Empecé a <strong>jugar con PCs antiguas</strong> y a <strong>aprender sobre Linux</strong> a una edad temprana, y ha sido un hobby mío
+    desde entonces. Disfruto <strong>devolviendo a la vida PCs antiguas</strong> y dándoles un nuevo propósito, ya sea para juegos,
+    programación, o simplemente uso general.
+</p>
+
+<p>
+    De todas formas, puedo decir que realmente me gustan los <strong>Lenovo ThinkPads</strong>, especialmente la <strong>serie X200</strong>, me gustan los <span class="highlight">monitores CRT</span> pero nunca
+    he tenido uno.
+</p>
+
+{% endblock %}

@@ -57,7 +57,7 @@
                 <li><a href="{{ url_for('home.youtube_channel')}}">{% if current_lang == 'es' %}Videos / YouTube{% else
                         %}Videos / YouTube{% endif %}</a></li>
                 <li><a href="#">{% if current_lang == 'es' %}Mini Blog{% else %}Mini Blog{% endif %}</a></li>
-                <li><a href="#">{% if current_lang == 'es' %}Sobre mí{% else %}About Me{% endif %}</a></li>
+                <li><a href="{{ url_for('home.about_me')}}">{% if current_lang == 'es' %}Sobre mí{% else %}About Me{% endif %}</a></li>
             </ul>
 
 
