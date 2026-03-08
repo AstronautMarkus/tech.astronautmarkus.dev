@@ -5,5 +5,6 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin', template_folder='te
 admin_bp.before_request(check_user_is_admin)
 
 from . import (
-    index
+    index,
+    mini_blog
 )

@@ -1,0 +1,133 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Mini Blog Admin{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_mini_blog.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Mini Blog - Administration</h1>
+
+<div class="admin-section">
+    <h2>Upload New Blog Post</h2>
+    <form id="uploadBlogForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required placeholder="Ex: My First Blog Post">
+        </div>
+        
+        <div class="form-group">
+            <label for="file">Markdown File (.md):</label>
+            <input type="file" id="file" name="file" accept=".md" required>
+        </div>
+        
+        <button type="submit">Upload Blog Post</button>
+    </form>
+    <div id="uploadMessage"></div>
+</div>
+
+<div class="admin-section">
+    <h2>Existing Blog Posts</h2>
+    <div id="blogList">
+        <p>Loading...</p>
+    </div>
+</div>
+
+<script>
+// Load existing blogs
+async function loadBlogs() {
+    try {
+        const response = await fetch('/admin/mini-blog');
+        const data = await response.json();
+        
+        const blogListDiv = document.getElementById('blogList');
+        
+        if (data.success && data.blogs.length > 0) {
+            blogListDiv.innerHTML = '<table><thead><tr><th>ID</th><th>Title</th><th>File</th><th>Created</th><th>Actions</th></tr></thead><tbody>' +
+                data.blogs.map(blog => `
+                    <tr>
+                        <td>${blog.id}</td>
+                        <td>${blog.title}</td>
+                        <td>${blog.markdown_file}</td>
+                        <td>${new Date(blog.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <a href="/mini-blog/${blog.id}" target="_blank">View</a> |
+                            <button onclick="deleteBlog(${blog.id})">Delete</button>
+                        </td>
+                    </tr>
+                `).join('') +
+                '</tbody></table>';
+        } else {
+            blogListDiv.innerHTML = '<p>No blog posts yet.</p>';
+        }
+    } catch (error) {
+        console.error('Error loading blogs:', error);
+        document.getElementById('blogList').innerHTML = '<p>Error loading blogs.</p>';
+    }
+}
+
+// Upload new blog
+document.getElementById('uploadBlogForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const messageDiv = document.getElementById('uploadMessage');
+    messageDiv.textContent = 'Uploading...';
+    messageDiv.className = '';
+    
+    const formData = new FormData(e.target);
+    
+    try {
+        const response = await fetch('/admin/mini-blog', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            messageDiv.textContent = 'Blog uploaded successfully!';
+            messageDiv.className = 'success';
+            e.target.reset();
+            loadBlogs();
+        } else {
+            messageDiv.textContent = 'Error: ' + data.message;
+            messageDiv.className = 'error';
+        }
+    } catch (error) {
+        console.error('Error uploading blog:', error);
+        messageDiv.textContent = 'Error uploading blog.';
+        messageDiv.className = 'error';
+    }
+});
+
+// Delete blog
+async function deleteBlog(blogId) {
+    if (!confirm('Are you sure you want to delete this blog post?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/admin/mini-blog/${blogId}`, {
+            method: 'DELETE'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Blog deleted successfully!');
+            loadBlogs();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error deleting blog:', error);
+        alert('Error deleting blog.');
+    }
+}
+
+// Load blogs on page load
+loadBlogs();
+</script>
+
+{% endblock %}

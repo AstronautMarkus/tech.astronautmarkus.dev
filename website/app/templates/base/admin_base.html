@@ -28,9 +28,8 @@
             <h3>{% if current_lang == 'es' %}Navegación{% else %}Navigation{% endif %}</h3>
 
             <ul>
-                <li><a href="{{ url_for('admin.admin_index')}}">{% if current_lang == 'es' %}Inicio Panel{% else %}Admin
-                        Home{% endif
-                        %}</a></li>
+                <li><a href="{{ url_for('admin.admin_index')}}">{% if current_lang == 'es' %}Inicio Panel{% else %}Admin Home{% endif %}</a></li>
+                <li><a href="{{ url_for('admin.mini_blog_admin')}}">{% if current_lang == 'es' %}Mini Blog{% else %}Mini Blog{% endif %}</a></li>
             </ul>
 
 
